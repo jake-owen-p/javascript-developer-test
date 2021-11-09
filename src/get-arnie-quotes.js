@@ -25,7 +25,7 @@ const transformApiResponseToQuote = (apiResponse) => {
  * @param urls {string[]} all urls to call
  * @return {apiResponse[]} result from each api call
  */
-const batchCallUrls = async (urls) => await Promise.all(urls.map((url) => httpGet(url)));
+const bulkCallHttpGet = async (urls) => await Promise.all(urls.map((url) => httpGet(url)));
 
 /**
  * @param urls {string[]} all urls to call for arnie quotes
@@ -33,7 +33,7 @@ const batchCallUrls = async (urls) => await Promise.all(urls.map((url) => httpGe
  */
 const getArnieQuotes = async (urls) => {
   const quotes = [];
-  const apiResults = await batchCallUrls(urls);
+  const apiResults = await bulkCallHttpGet(urls);
   for (const result of apiResults) {
     const quote = transformApiResponseToQuote(result);
     quotes.push(quote);
