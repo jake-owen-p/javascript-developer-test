@@ -3,9 +3,9 @@ const { httpGet } = require('./mock-http-interface');
 const SUCCESS_STATUS_CODE = 200;
 const ARNIE_QUOTE_KEY = 'Arnie Quote';
 const FAILURE_KEY = 'FAILURE';
-const transformApiResultToQuote = (apiResponse) => {
-  const resultBody = JSON.parse(apiResponse.body);
-  const message = resultBody.message;
+const transformApiResponseToQuote = (apiResponse) => {
+  const body = JSON.parse(apiResponse.body);
+  const message = body.message;
   if (apiResponse.status === SUCCESS_STATUS_CODE) {
     return { [ARNIE_QUOTE_KEY]: message };
   } else {
@@ -19,7 +19,7 @@ const getArnieQuotes = async (urls) => {
   const quotes = [];
   const apiResults = await batchCallUrls(urls);
   for (const result of apiResults) {
-    const quote = transformApiResultToQuote(result);
+    const quote = transformApiResponseToQuote(result);
     quotes.push(quote);
   }
   return quotes;
