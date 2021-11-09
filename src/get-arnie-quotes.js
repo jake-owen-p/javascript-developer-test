@@ -13,16 +13,16 @@ const transformApiResultToQuote = (apiResponse) => {
   }
 }
 
-const batchCallApi = async (urls) => await Promise.all(urls.map((url) => httpGet(url)));
+const batchCallUrls = async (urls) => await Promise.all(urls.map((url) => httpGet(url)));
 
 const getArnieQuotes = async (urls) => {
-  const results = [];
-  const apiResults = await batchCallApi(urls);
+  const quotes = [];
+  const apiResults = await batchCallUrls(urls);
   for (const result of apiResults) {
     const quote = transformApiResultToQuote(result);
-    results.push(quote);
+    quotes.push(quote);
   }
-  return results;
+  return quotes;
 };
 
 module.exports = {
