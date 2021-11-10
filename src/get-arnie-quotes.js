@@ -30,13 +30,8 @@ const bulkCallHttpGet = async (urls) => await Promise.all(urls.map((url) => http
  * @return {Object.<string, string>[]} array of quotes or failure messages
  */
 const getArnieQuotes = async (urls) => {
-  const quotes = [];
   const apiResults = await bulkCallHttpGet(urls);
-  for (const result of apiResults) {
-    const quote = transformApiResponseToQuote(result);
-    quotes.push(quote);
-  }
-  return quotes;
+  return apiResults.map(transformApiResponseToQuote);
 };
 
 module.exports = {
